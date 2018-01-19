@@ -12,25 +12,40 @@ paths:
     post:
       tags:
         - Order 订单
-      summary: 创建新订单
+      summary: 批量创建新订单
       description: ''
-      operationId: createOrder
+      operationId: order.create
       consumes:
         - application/json
+        - application/xml
       produces:
         - application/json
       parameters:
-        - in: body
-          name: body
-          description: Order object
+        - name: token
+          in: query
+          description: 授权凭证
+          required: true
+          type: string
+        - name: orders
+          in: body
+          description: 订单数据数组
           required: true
           schema:
             type: array
             items:
-              $ref: '#/definitions/Order'
+              $ref: '#/definitions/SofOrder'
+            xml:
+              name: ORDERS
+              wrapped: true
       responses:
-        '405':
-          description: Invalid input
+        '200':
+          description: 订单创建成功
+        '400':
+          description: 接口参数错误
+        '403':
+          description: API接口授权凭证错误
+        '500':
+          description: 服务器创建逻辑错误
   '/orders/{id}':
     put:
       tags:
@@ -53,7 +68,7 @@ paths:
           description: Pet object that needs to be added to the store
           required: true
           schema:
-            $ref: '#/definitions/Order'
+            $ref: '#/definitions/SofOrder'
       responses:
         '400':
           description: Invalid ID supplied
@@ -71,52 +86,435 @@ securityDefinitions:
     name: appid
     in: query
 definitions:
-  Order:
+  SofOrder:
     type: object
+    required:
+      - cust_order_no
     properties:
-      id:
-        type: integer
-        format: int64
-      partnerId:
-        type: integer
-        format: int64
-      quantity:
-        type: integer
-        format: int32
-      shipment:
-        $ref: '#/definitions/Shipment'
-      status:
+      cust_code:
         type: string
-        description: Order Status
+        description: App对应接口未配置客户时,需填写
+        xml:
+          name: CUST_CODE
+      customer_name:
+        type: string
+        description: 客户名称
+        xml:
+          name: CUSTOMER_NAME
+      cust_order_no:
+        type: string
+        description: 客户单号
+        xml:
+          name: CUST_ORDER_NO
+      cust_shipmt_transfer:
+        type: string
+        description: IMPT 进口 EXPT 出口 DOM 国内流程
+        default: 'DOM'
         enum:
-          - placed
-          - approved
-          - delivered
-      complete:
-        type: boolean
-        default: false
+          - 'IMPT'
+          - 'EXPT'
+          - 'DOM'
+        xml:
+          name: CUST_SHIPMT_TRANSFER
+      cust_shipmt_pieces:
+        type: number
+        format: float
+        description: 件数
+        xml:
+          name: CUST_SHIPMT_PIECES
+      cust_shipmt_wrap_type:
+        type: string
+        description: 包装
+        enum:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+          - '6'
+          - '7'
+        xml:
+          name: CUST_SHIPMT_WRAP_TYPE
+      cust_shipmt_weight:
+        type: number
+        format: float
+        description: 总毛重
+        xml:
+          name: CUST_SHIPMT_WEIGHT
+      cust_shipmt_volume:
+        type: number
+        format: float
+        description: 总体积
+        xml:
+          name: CUST_SHIPMT_VOLUME
+      cust_shipmt_expedited:
+        type: string
+        description: 紧急程度
+        enum:
+          - '0'
+          - '1'
+          - '2'
+        xml:
+          name: CUST_SHIPMT_EXPEDITED
+      cust_shipmt_goods_type:
+        type: string
+        description: 货物类型
+        default: '0'
+        enum:
+          - '0'
+          - '1'
+          - '2'
+        xml:
+          name: CUST_SHIPMT_GOODS_TYPE
+      cust_receiver_code:
+        type: string
+        description: 收货方代码
+        xml:
+          name: CUST_RECEIVER_CODE
+      cust_receiver_name:
+        type: string
+        description: 收货方名称
+        xml:
+          name: CUST_RECEIVER_NAME
+      cust_receiver_contact:
+        type: string
+        description: 收货方联系人
+        xml:
+          name: CUST_RECEIVER_CONTACT
+      cust_receiver_address:
+        type: string
+        description: 收件详细地址
+        xml:
+          name: CUST_RECEIVER_ADDRESS
+      cust_receiver_tel:
+        type: string
+        description: 收货方联系电话
+        xml:
+          name: CUST_RECEIVER_TEL
+      cust_receiver_mobile:
+        type: string
+        description: 收货方手机号
+        xml:
+          name: CUST_RECEIVER_MOBILE
+      cust_remark:
+        type: string
+        description: 备注
+        xml:
+          name: CUST_REMARK
+      cust_shipmt_trans_mode:
+        type: string
+        description: 运输方式
+        enum:
+          - '2'
+          - '5'
+          - '3'
+        xml:
+          name: CUST_SHIPMT_TRANS_MODE
+      bl_mawb:
+        type: string
+        description: 提运单/主运单
+        xml:
+          name: BL_MAWB
+      swb_hawb:
+        type: string
+        description: 海运单/分运单
+        xml:
+          name: SWB_HAWB
+      cust_shipmt_vessel:
+        type: string
+        description: 船名/航班号
+        xml:
+          name: CUST_SHIPMT_VESSEL
+      cust_shipmt_voy:
+        type: string
+        description: 航次
+        xml:
+          name: CUST_SHIPMT_VOY
+      cust_shipmt_forwarder:
+        type: string
+        description: 货运代理
+        xml:
+          name: CUST_SHIPMT_FORWARDER
+      cust_shipmt_freight:
+        type: number
+        format: float
+        description: 运费
+        xml:
+          name: CUST_SHIPMT_FREIGHT
+      cust_shipmt_freight_currency:
+        type: string
+        description: 运费币制
+        xml:
+          name: CUST_SHIPMT_FREIGHT_CURRENCY
+      cust_shipmt_insur_fee:
+        type: number
+        format: float
+        description: 保费
+        xml:
+          name: CUST_SHIPMT_INSUR_FEE
+      cust_shipmt_insur_currency:
+        type: string
+        description: 保费币制
+        xml:
+          name: CUST_SHIPMT_INSUR_CURRENCY
+      cust_shipmt_misc_fee:
+        type: number
+        format: float
+        description: 杂费
+        xml:
+          name: CUST_SHIPMT_MISC_FEE
+      cust_shipmt_misc_currency:
+        type: string
+        description: 杂费币制
+        xml:
+          name: CUST_SHIPMT_MISC_CURRENCY
+      products:
+        description: 订单明细数组
+        type: array
+        items:
+          $ref: '#/definitions/SofOrderProduct'
     xml:
-      name: Order
-  Shipment:
+      name: ORDER
+  SofOrderProduct:
     type: object
     properties:
-      id:
-        type: integer
-        format: int64
-      petId:
-        type: integer
-        format: int64
-      quantity:
-        type: integer
-        format: int32
-      shipDate:
+      container_no:
         type: string
-        format: date-time
-      complete:
-        type: boolean
-        default: false
+        description: 集装箱号
+        xml:
+          name: CONTAINER_NO
+      invoice_no:
+        type: string
+        description: 发票号
+        xml:
+          name: INVOICE_NO
+      invoice_date:
+        type: string
+        format: date
+        description: 发票日期
+        xml:
+          name: INVOICE_NO
+      po_no:
+        type: string
+        description: 订单号
+        xml:
+          name: PO_NO
+      product_no:
+        type: string
+        description: 商品货号
+        xml:
+          name: PRODUCT_NO
+      manual_no:
+        type: string
+        description: '手册号'
+        xml:
+          name: MANUAL_NO
+      prdt_item_no:
+        type: string
+        description: '项号'
+        xml:
+          name: PRDT_ITEM_NO
+      hscode:
+        type: string
+        description: 商品编码
+        xml:
+          name: HSCODE
+      name:
+        type: string
+        description: 商品名称
+        xml:
+          name: NAME
+      en_name:
+        type: string
+        description: 英文描述
+        xml:
+          name: EN_NAME
+      qty:
+        type: number
+        format: float
+        description: 数量(个数)
+        xml:
+          name: QTY
+      unit:
+        type: string
+        description: 单位(个数)
+        xml:
+          name: UNIT
+      model:
+        type: string
+        description: 规格型号
+        xml:
+          name: MODEL
+      g_qty:
+        type: number
+        format: float
+        description: 申报数量
+        xml:
+          name: G_QTY
+      g_unit:
+        type: string
+        description: 申报单位
+        xml:
+          name: G_UNIT
+      qty_1:
+        type: number
+        format: float
+        description: 法定第一数量
+        xml:
+          name: QTY_1
+      unit_1:
+        type: string
+        description: 法定第一单位
+        xml:
+          name: UNIT_1
+      qty_2:
+        type: number
+        format: float
+        description: 法定第二数量
+        xml:
+          name: QTY_2
+      unit_2:
+        type: string
+        description: 法定第二单位
+        xml:
+          name: UNIT_2
+      gross_wt:
+        type: number
+        format: float
+        description: 毛重(千克)
+        xml:
+          name: GROSS_WT
+      net_wt:
+        type: number
+        format: float
+        description: 净重(千克)
+        xml:
+          name: NET_WT
+      unit_price:
+        type: number
+        format: float
+        description: 申报单价
+        xml:
+          name: UNIT_PRICE
+      amount:
+        type: number
+        format: float
+        description: 申报总价
+        xml:
+          name: AMOUNT
+      currency:
+        type: string
+        description: 币制
+        xml:
+          name: CURRENCY
+      duty_mode:
+        type: string
+        description: 征免方式
+        enum:
+          - '1'
+          - '照章征税'
+          - '2'
+          - '折半征税'
+          - '3'
+          - '全免'
+          - '4'
+          - '特案'
+          - '5'
+          - '随征免性质'
+          - '6'
+          - '保证金'
+          - '7'
+          - '保函'
+          - '8'
+          - '折半补税'
+          - '9'
+          - '全额退税'
+        xml:
+          name: DUTY_MODE
+      country:
+        type: string
+        description: 目的国
+        xml:
+          name: COUNTRY
+      dest_country:
+        type: string
+        description: 原产国
+        xml:
+          name: DEST_COUNTRY
+      version_no:
+        type: string
+        description: 版本号
+        xml:
+          name: VERSION_NO
+      processing_fees:
+        type: string
+        description: 工缴费
+        xml:
+          name: PROCESSING_FEES
+      trxn_mode:
+        type: string
+        description: 成交方式
+        xml:
+          name: TRXN_MODE
+      virtual_whse:
+        type: string
+        description: 库别
+        xml:
+          name: VIRTUAL_WHSE
+      supplier:
+        type: string
+        description: 供货商
+        xml:
+          name: SUPPLIER
+      external_lot_no:
+        type: string
+        description: 批次号
+        xml:
+          name: EXTERNAL_LOT_NO
+      attrib_1_string:
+        type: string
+        description: 扩展属性1
+        xml:
+          name: ATTRIB_1_STRING
+      attrib_2_string:
+        type: string
+        description: 扩展属性2
+        xml:
+          name: ATTRIB_2_STRING
+      attrib_3_string:
+        type: string
+        description: 扩展属性3
+        xml:
+          name: ATTRIB_3_STRING
+      attrib_4_string:
+        type: string
+        description: 扩展属性4
+        xml:
+          name: ATTRIB_4_STRING
+      attrib_5_string:
+        type: string
+        description: 扩展属性5
+        xml:
+          name: ATTRIB_5_STRING
+      attrib_6_string:
+        type: string
+        description: 扩展属性6
+        xml:
+          name: ATTRIB_6_STRING
+      attrib_7_date:
+        type: string
+        format: dateTime
+        description: 扩展属性7
+        xml:
+          name: ATTRIB_7_DATE
+      attrib_8_date:
+        type: string
+        format: dateTime
+        description: 扩展属性8
+        xml:
+          name: ATTRIB_8_DATE
     xml:
-      name: Shipment
+      name: PRODUCT
   ApiResponse:
     type: object
     properties:
