@@ -293,7 +293,7 @@ definitions:
         format: date
         description: 发票日期
         xml:
-          name: INVOICE_NO
+          name: INVOICE_DATE
       po_no:
         type: string
         description: 订单号
