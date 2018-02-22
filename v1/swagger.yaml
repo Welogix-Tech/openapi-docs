@@ -471,6 +471,11 @@ definitions:
         description: 批次号
         xml:
           name: EXTERNAL_LOT_NO
+      serial_no:
+        type: string
+        description: 序列号
+        xml:
+          name: SERIAL_NO
       attrib_1_string:
         type: string
         description: 扩展属性1
