@@ -299,6 +299,16 @@ definitions:
         description: 订单号
         xml:
           name: PO_NO
+      pre_entry_seq_no:
+        type: string
+        description: 报关单号/报关内部编号
+        xml:
+          name: PRE_ENTRY_SEQ_NO
+      decl_g_no:
+        type: integer
+        description: 报关单项号
+        xml:
+          name: DECL_G_NO
       product_no:
         type: string
         description: 商品货号
@@ -311,7 +321,7 @@ definitions:
           name: MANUAL_NO
       prdt_item_no:
         type: string
-        description: '项号'
+        description: '清单项号'
         xml:
           name: PRDT_ITEM_NO
       hscode:
