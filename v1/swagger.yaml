@@ -393,18 +393,18 @@ definitions:
         description: 法定第二单位
         xml:
           name: GT_UNIT_2
-      gt_gross_wt:
+      gt_grosswt:
         type: number
         format: float
         description: 毛重(千克)
         xml:
-          name: GT_GROSS_WT
-      gt_net_wt:
+          name: GT_GROSSWT
+      gt_netwt:
         type: number
         format: float
         description: 净重(千克)
         xml:
-          name: GT_NET_WT
+          name: GT_NETWT
       gt_unit_price:
         type: number
         format: float
