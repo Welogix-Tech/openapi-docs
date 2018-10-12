@@ -3,10 +3,11 @@ info:
   description: 微骆开放平台接口
   version: 1.0.0
   title: WeLogix OpenAPI
-host: openapi.welogix.cn
+host: openapi.welogix.co
 basePath: /v1
 schemes:
   - https
+  - http
 paths:
   /orders:
     post:
