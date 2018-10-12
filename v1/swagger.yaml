@@ -6,7 +6,6 @@ info:
 host: openapi.welogix.co
 basePath: /v1
 schemes:
-  - https
   - http
 paths:
   /orders:
