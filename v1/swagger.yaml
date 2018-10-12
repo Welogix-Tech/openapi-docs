@@ -278,22 +278,22 @@ definitions:
   SofOrderProduct:
     type: object
     properties:
-      container_no:
+      gt_container_no:
         type: string
         description: 集装箱号
         xml:
-          name: CONTAINER_NO
-      invoice_no:
+          name: GT_CONTAINER_NO
+      inv_no_in:
         type: string
         description: 发票号
         xml:
-          name: INVOICE_NO
-      invoice_date:
+          name: INV_NO_IN
+      gt_invoice_date:
         type: string
         format: date
         description: 发票日期
         xml:
-          name: INVOICE_DATE
+          name: GT_INVOICE_DATE
       po_no:
         type: string
         description: 订单号
@@ -304,120 +304,125 @@ definitions:
         description: 报关单号/报关内部编号
         xml:
           name: PRE_ENTRY_SEQ_NO
-      decl_g_no:
+      gt_decl_g_no:
         type: integer
         description: 报关单项号
         xml:
-          name: DECL_G_NO
-      product_no:
+          name: GT_DECL_G_NO
+      gt_product_no:
         type: string
         description: 商品货号
         xml:
-          name: PRODUCT_NO
-      manual_no:
+          name: GT_PRODUCT_NO
+      gt_inner_code:
         type: string
-        description: '手册号'
+        description: 内部代码
         xml:
-          name: MANUAL_NO
-      prdt_item_no:
+          name: GT_INNER_CODE
+      gt_manual_no:
         type: string
-        description: '清单项号'
+        description: '账册/手册号'
         xml:
-          name: PRDT_ITEM_NO
-      hscode:
+          name: GT_MANUAL_NO
+      gt_prdt_item_no:
         type: string
-        description: 商品编码
+        description: '备案序号'
         xml:
-          name: HSCODE
-      name:
+          name: GT_PRDT_ITEM_NO
+      gt_hscode:
         type: string
-        description: 商品名称
+        description: 商品编号(10/13位)
         xml:
-          name: NAME
-      en_name:
+          name: GT_HSCODE
+      gt_name_cn:
         type: string
-        description: 英文描述
+        description: 商品中文名称
         xml:
-          name: EN_NAME
-      qty:
+          name: GT_NAME_CN
+      gt_name_en:
+        type: string
+        description: 英文名称
+        xml:
+          name: GT_NAME_EN
+      gt_qty_pcs:
         type: number
         format: float
         description: 数量(个数)
         xml:
-          name: QTY
-      unit:
+          name: GT_QTY_PCS
+      gt_unit_pcs:
         type: string
         description: 单位(个数)
         xml:
-          name: UNIT
-      model:
+          name: GT_UNIT_PCS
+      gt_g_model:
         type: string
-        description: 规格型号
+        description: 规范申报
         xml:
-          name: MODEL
-      g_qty:
+          name: GT_G_MODEL
+      gt_g_qty:
         type: number
         format: float
-        description: 申报数量
+        description: 成交数量
         xml:
-          name: G_QTY
-      g_unit:
+          name: GT_G_QTY
+      gt_g_unit:
         type: string
-        description: 申报单位
+        description: 成交单位
         xml:
-          name: G_UNIT
-      qty_1:
+          name: GT_G_UNIT
+      gt_qty_1:
         type: number
         format: float
         description: 法定第一数量
         xml:
-          name: QTY_1
-      unit_1:
+          name: GT_QTY_1
+      gt_unit_1:
         type: string
         description: 法定第一单位
         xml:
-          name: UNIT_1
-      qty_2:
+          name: GT_UNIT_1
+      gt_qty_2:
         type: number
         format: float
         description: 法定第二数量
         xml:
-          name: QTY_2
-      unit_2:
+          name: GT_QTY_2
+      gt_unit_2:
         type: string
         description: 法定第二单位
         xml:
-          name: UNIT_2
-      gross_wt:
+          name: GT_UNIT_2
+      gt_gross_wt:
         type: number
         format: float
         description: 毛重(千克)
         xml:
-          name: GROSS_WT
-      net_wt:
+          name: GT_GROSS_WT
+      gt_net_wt:
         type: number
         format: float
         description: 净重(千克)
         xml:
-          name: NET_WT
-      unit_price:
+          name: GT_NET_WT
+      gt_unit_price:
         type: number
         format: float
         description: 申报单价
         xml:
-          name: UNIT_PRICE
-      amount:
+          name: GT_UNIT_PRICE
+      gt_amount:
         type: number
         format: float
         description: 申报总价
         xml:
-          name: AMOUNT
-      currency:
+          name: GT_AMOUNT
+      gt_currency:
         type: string
         description: 币制
         xml:
-          name: CURRENCY
-      duty_mode:
+          name: GT_CURRENCY
+      gt_duty_mode:
         type: string
         description: 征免方式
         enum:
@@ -440,94 +445,94 @@ definitions:
           - '9'
           - '全额退税'
         xml:
-          name: DUTY_MODE
-      country:
+          name: GT_DUTY_MODE
+      gt_origin_country:
         type: string
         description: 目的国
         xml:
-          name: COUNTRY
-      dest_country:
+          name: GT_ORIGIN_COUNTRY
+      gt_dest_country:
         type: string
         description: 原产国
         xml:
-          name: DEST_COUNTRY
-      version_no:
+          name: GT_DEST_COUNTRY
+      gt_version_no:
         type: string
         description: 版本号
         xml:
-          name: VERSION_NO
-      processing_fees:
+          name: GT_VERSION_NO
+      gt_processing_fees:
         type: string
         description: 工缴费
         xml:
-          name: PROCESSING_FEES
-      trxn_mode:
+          name: GT_PROCESSING_FEES
+      gt_trxn_mode:
         type: string
         description: 成交方式
         xml:
-          name: TRXN_MODE
-      virtual_whse:
+          name: GT_TRXN_MODE
+      gt_virtual_whse:
         type: string
         description: 库别
         xml:
-          name: VIRTUAL_WHSE
-      supplier:
+          name: GT_VIRTUAL_WHSE
+      gt_supplier:
         type: string
         description: 供货商
         xml:
-          name: SUPPLIER
-      external_lot_no:
+          name: GT_SUPPLIER
+      gt_external_lot_no:
         type: string
         description: 批次号
         xml:
-          name: EXTERNAL_LOT_NO
-      serial_no:
+          name: GT_EXTERNAL_LOT_NO
+      gt_serial_no:
         type: string
         description: 序列号
         xml:
-          name: SERIAL_NO
-      attrib_1_string:
+          name: GT_SERIAL_NO
+      gt_attrib_1_string:
         type: string
         description: 扩展属性1
         xml:
-          name: ATTRIB_1_STRING
-      attrib_2_string:
+          name: GT_ATTRIB_1_STRING
+      gt_attrib_2_string:
         type: string
         description: 扩展属性2
         xml:
-          name: ATTRIB_2_STRING
-      attrib_3_string:
+          name: GT_ATTRIB_2_STRING
+      gt_attrib_3_string:
         type: string
         description: 扩展属性3
         xml:
-          name: ATTRIB_3_STRING
-      attrib_4_string:
+          name: GT_ATTRIB_3_STRING
+      gt_attrib_4_string:
         type: string
         description: 扩展属性4
         xml:
-          name: ATTRIB_4_STRING
-      attrib_5_string:
+          name: GT_ATTRIB_4_STRING
+      gt_attrib_5_string:
         type: string
         description: 扩展属性5
         xml:
-          name: ATTRIB_5_STRING
-      attrib_6_string:
+          name: GT_ATTRIB_5_STRING
+      gt_attrib_6_string:
         type: string
         description: 扩展属性6
         xml:
-          name: ATTRIB_6_STRING
-      attrib_7_date:
+          name: GT_ATTRIB_6_STRING
+      gt_attrib_7_date:
         type: string
         format: dateTime
         description: 扩展属性7
         xml:
-          name: ATTRIB_7_DATE
-      attrib_8_date:
+          name: GT_ATTRIB_7_DATE
+      gt_attrib_8_date:
         type: string
         format: dateTime
         description: 扩展属性8
         xml:
-          name: ATTRIB_8_DATE
+          name: GT_ATTRIB_8_DATE
     xml:
       name: PRODUCT
   ApiResponse:
