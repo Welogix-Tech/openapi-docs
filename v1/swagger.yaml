@@ -126,13 +126,20 @@ definitions:
         type: string
         description: 包装
         enum:
-          - '1'
-          - '2'
-          - '3'
-          - '4'
-          - '5'
-          - '6'
-          - '7'
+          - '00'
+          - '01'
+          - '22'
+          - '23'
+          - '29'
+          - '32'
+          - '33'
+          - '39',
+          - '04',
+          - '06',
+          - '92',
+          - '93',
+          - '98',
+          - '99',
         xml:
           name: CUST_SHIPMT_WRAP_TYPE
       cust_shipmt_weight:
@@ -471,6 +478,66 @@ definitions:
         description: 成交方式
         xml:
           name: GT_TRXN_MODE
+      gt_ftz_ent_no:
+        type: string
+        description: 监管入库单号
+        xml:
+          name: GT_FTZ_ENT_NO
+      gt_district_code:
+        type: string
+        description: 境内目的地/货源地
+        xml:
+          name: GT_DISTRICT_CODE
+      gt_district_region:
+        type: string
+        description: 目的/货源地行政区划
+        xml:
+          name: GT_DISTRICT_REGION
+      gt_orig_place_code:
+        type: string
+        description: 原产地区
+        xml:
+          name: GT_ORIG_PLACE_CODE
+      gt_goods_attr:
+        type: string
+        description: 货物属性
+        xml:
+          name: GT_GOODS_ATTR
+      gt_purpose:
+        type: string
+        description: 用途
+        xml:
+          name: GT_PURPOSE
+      gt_cust_order_no_in:
+        type: string
+        description: 入库订单号
+        xml:
+          name: GT_CUST_ORDER_NO_IN
+      gt_danger_flag:
+        type: string
+        description: 非危险化学品(是/否)
+        xml:
+          name: GT_DANGER_FLAG
+      gt_danger_uncode:
+        type: string
+        description: UN编码
+        xml:
+          name: GT_DANGER_UNCODE
+      gt_danger_name:
+        type: string
+        description: 危险货物名称
+        xml:
+          name: GT_DANGER_NAME
+      gt_danger_pack_type:
+        type: string
+        description: 危包类别
+        xml:
+          name: GT_DANGER_PACK_TYPE
+      gt_danger_pack_spec:
+        type: string
+        description: 危包规格
+        xml:
+          name: GT_DANGER_PACK_SPEC
       gt_virtual_whse:
         type: string
         description: 库别
