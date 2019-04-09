@@ -670,7 +670,8 @@ definitions:
         xml:
           name: INVOICE_CATEGORY
       invoice_date:
-        type: date
+        type: string
+        format: date
         description: 发票日期
         xml:
           name: INVOICE_DATE
@@ -687,7 +688,7 @@ definitions:
       package_type:
         type: string
         description: 包装类型
-         enum:
+        enum:
           - '00'
           - '散装'
           - '01'
