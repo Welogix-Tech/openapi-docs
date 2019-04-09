@@ -76,6 +76,44 @@ paths:
           description: Pet not found
         '405':
           description: Validation exception
+  /invoices:
+    post:
+      tags:
+        - Invoice 发票
+      summary: 批量创建发票
+      description: ''
+      operationId: invoice.create
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: query
+          description: 授权凭证
+          required: true
+          type: string
+        - name: invoices
+          in: body
+          description: 发票数组
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SofInvoice'
+            xml:
+              name: INVOICES
+              wrapped: true
+      responses:
+        '200':
+          description: 发票创建成功
+        '400':
+          description: 接口参数错误
+        '403':
+          description: API接口授权凭证错误
+        '500':
+          description: 服务器创建逻辑错误
 securityDefinitions:
   oauth:
     type: oauth2
@@ -616,6 +654,82 @@ definitions:
           name: GT_ATTRIB_8_DATE
     xml:
       name: PRODUCT
+  SofInvoice:
+    type: object
+    required:
+      - invoice_no
+    properties:
+      invoice_no:
+        type: string
+        description: 发票号
+        xml:
+          name: INVOICE_NO
+      invoice_category:
+        type: string
+        description: 发票类别
+        xml:
+          name: INVOICE_CATEGORY
+      invoice_date:
+        type: date
+        description: 发票日期
+        xml:
+          name: INVOICE_DATE
+      bl_awb_no:
+        type: string
+        description: 提运单号
+        xml:
+          name: BL_AWB_NO
+      package_number:
+        type: number
+        description: 包装件数
+        xml:
+          name: PACKAGE_NUMBER
+      package_type:
+        type: string
+        description: 包装类型
+         enum:
+          - '00'
+          - '散装'
+          - '01'
+          - '裸装'
+          - '22'
+          - '纸制或纤维板制盒/箱'
+          - '23'
+          - '木制或竹藤等植物性材料制盒/箱'
+          - '29'
+          - '其他材料制盒/箱'
+          - '32'
+          - '纸制或纤维板制桶'
+          - '33'
+          - '木制或竹藤等植物性材料制桶'
+          - '39'
+          - '其他材料制桶'
+          - '04'
+          - '球状罐类'
+          - '06'
+          - '包/袋'
+          - '92'
+          - '再生木托'
+          - '93'
+          - '天然木托'
+          - '98'
+          - '植物性铺垫材料'
+          - '99'
+          - '其他包装'
+        xml:
+          name: PACKAGE_TYPE
+      trade_mode:
+        type: string
+        description: 成交方式
+        xml:
+          name: TRADE_MODE
+      products:
+        description: 发票明细数组
+        type: array
+        items:
+          $ref: '#/definitions/SofOrderProduct'
+    xml:
+      name: INVOICE
   ApiResponse:
     type: object
     properties:
